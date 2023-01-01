@@ -14,6 +14,22 @@
         {% endblock %}
     </head>
     <body>
+        <div style="display:flex;align-items:center;justify-content:space-around;padding: 0, 100px;">
+            <h1>{{ "< WVM />" }}</h1>
+            <div>
+                <a href="{{ path('home_app') }}">Home</a>
+                <a href="{{ path('articles_app') }}">Articles</a>
+                <a href="{{ path('about_app') }}">About</a>
+                <a href="{{ path('contact_app') }}">Contact</a>
+            </div>
+            <div>
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_logout') }}">Sair><a>
+                {% else %}
+                    <h2>____</h2>
+                {% endif %}
+            </div>
+        </div>
         {% block body %}{% endblock %}
     </body>
 </html>

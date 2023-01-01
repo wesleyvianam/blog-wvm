@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h1>You are in Home!</h1>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('create_article') }}"></a>
+    {% endif %}
+{% endblock %}
