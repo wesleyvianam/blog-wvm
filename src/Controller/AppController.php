@@ -15,12 +15,6 @@ class AppController extends AbstractController
         return $this->render('pages/home.html.twig');
     }
 
-    #[Route("/artcles", name: 'articles_app', methods: ['GET'])]
-    public function artcle()
-    {
-        return $this->render('pages/artcles.html.twig');
-    }
-
     #[Route("/about", name: 'about_app', methods: ['GET'])]
     public function about()
     {
