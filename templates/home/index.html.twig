@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<style>
+    .content { 
+        color: white;
+        padding: 1rem 10rem;
+    }
+
+    *  {
+        font-family: 'Inter', sans-serif;
+    } 
+</style>
+
+<div class="content">
+    <div class="header">
+        <h1>Last Articles:</h1>
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('app_article_form') }}">CRIAR NEW ARTICLE</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

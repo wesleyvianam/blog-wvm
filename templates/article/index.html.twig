@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<style>
+    .content { 
+        padding: 1rem 10rem;
+        color: white;
+    }
+
+    *  {
+        font-family: 'Inter', sans-serif;
+    } 
+    
+    .content__header {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center; 
+    }
+    
+    .list-article {
+        border:1px solid #cccccc; 
+        margin: 10px 0;
+        border-radius: 10px;
+        padding:1rem; display: flex;
+        justify-content: space-between;
+        align-items:center; 
+    }
+    
+    .list-article-btn {
+        text-decoration: none; 
+        border: 1px solid;
+        border-radius:10px;
+        padding:5px 10px; 
+        color: white;
+    }
+
+    .button-new-article {
+        color: white;
+        text-decoration: none;
+        border: 1px solid;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        background-color: #660f56;
+    }
+    
+    .ul {
+        list-style-type: none !important;
+        padding-inline-start: 0;
+    }
+</style>
+
+<div class="content">
+    <div class="content__header">
+        <h1>All Articles:</h1>
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('app_article_form') }}" class="button-new-article">New article</a>
+        {% endif %}
+    </div>
+
+    <div>
+        <ul class="ul">
+            {% for article in articles %}
+                <li class="list-article">
+                    <div>
+                        <strong>{{ article.title }}</strong> <br/>
+                        <span><strong>Author:</strong> {{ article.author }}</span>
+                    </div>
+                    <a href="{{ path('article_by_id', {article: article.id}) }}" class="list-article-btn">Read Article</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

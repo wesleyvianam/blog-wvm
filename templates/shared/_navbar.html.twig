@@ -1,0 +1,47 @@
+<style>
+    .navbar {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding: 0 8rem;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        border-bottom:1px solid white;
+        text-align:center;
+    }
+
+    .navbar__logo {
+        width:200px; 
+        font-family: 'Audiowide', cursive;
+    }
+
+    .navbar__link {
+        color: #FFFFFF;
+        text-decoration: none;
+        padding: 0 23px;
+    }
+
+    .btn {
+        border: 1px solid;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+</style>
+
+    <nav class="navbar">
+        <h1 class="navbar__logo">{{ "< WVM />" }}</h1>
+        <div>
+            <a class="navbar__link" href="{{ path('home_app') }}">HOME</a>
+            <a class="navbar__link" href="{{ path('articles') }}">ARTICLES</a>
+            <a class="navbar__link" href="{{ path('about_app') }}">ABOUT</a>
+            <a class="navbar__link" href="{{ path('contact_app') }}">CONTACT</a>
+        </div style="width:200px;">
+        <div style="width:200px;">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_logout') }}" class="navbar__link btn">
+                    Sair
+                    <i class="bi bi-box-arrow-in-right"></i>
+                </a>
+            {% endif %}
+        </div>
+    </nav>

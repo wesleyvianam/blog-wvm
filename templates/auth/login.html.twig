@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .content { 
+        padding: 1rem 10rem;
+    }
+
+    *  {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .content__section {
+        height: calc(100vh - 150px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content__section_block {
+        border: 1px solid #FFF;
+        border-radius: 4px;
+        padding: 2rem;
+    }
+
+    .content__section_form {
+        display: flex;
+        flex-direction: column;
+        width: 450px;
+        font-size: 20px;
+    }
+
+    .content__section_form_title {
+        font-family: 'Audiowide', cursive;
+        color: #9d2b88;
+        text-align: center;
+    }
+
+    .content__section_form_input, .content__section_form_button {
+        border: none;
+        border-radius: 4px;
+        margin: 1rem 0;
+        padding: 1rem;
+        font-size: 18px;
+
+    }
+
+    .content__section_form_input:focus {
+        border: 2px solid #ff0000;
+    }
+    
+    .content__section_form_button {
+        background: #9d2b88;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+<div class="content">
+    <div class="content__section">
+        <div class="content__section_block">
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form action="{{ path('app_login') }}" method="post" class="content__section_form">
+                <h2 class="content__section_form_title">{{ "< WVM />" }}</h2>
+
+                <label for="username"></label>
+                <input type="text"
+                    id="username"
+                    name="_username" 
+                    value="{{ last_username }}"
+                    content__section_form_input
+                    class="content__section_form_input">
+
+                <label for="password"></label>
+                <input type="password"
+                    id="password" 
+                    name="_password"
+                    class="content__section_form_input">
+
+                <input type="hidden" name="home_app" value="/account">
+
+                <button type="submit" class="content__section_form_button">Entrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<style>
+    .content { 
+        padding: 1rem 10rem;
+    }
+
+    *  {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .content__section {
+        height: calc(100vh - 150px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content__section_form {
+        border: 1px solid #FFF;
+        border-radius: 4px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        width: 450px;
+        font-size: 20px;
+    }
+
+    .content__section_form_title {
+        font-family: 'Audiowide', cursive;
+        color: #9d2b88;
+        text-align: center;
+    }
+
+    .content__section_form_input, .content__section_form_button {
+        border: none;
+        border-radius: 4px;
+        margin: 1rem 0;
+        padding: 1rem;
+        font-size: 18px;
+
+    }
+
+    .content__section_form_input:focus {
+        border: 2px solid #ff0000;
+    }
+    
+    .content__section_form_button {
+        background: #9d2b88;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+    <div class="content">
+        <div class="content__section">
+            <div class="content__section_form">
+                <h2 class="content__section_form_title">{{ "< WVM />" }}</h2>
+
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.name, {
+                        label: 'Nome: ',
+                    }) }}
+                    {{ form_row(registrationForm.email, {
+                        label: 'Email: ',
+                    }) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Senha: ',
+                    }) }}
+
+                    <button type="submit" class="content__section_form_button">Registrar</button>
+                {{ form_end(registrationForm) }}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

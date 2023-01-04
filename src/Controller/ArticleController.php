@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DTO\ArticleCreateFromInput;
 use App\Entity\Article;
 use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
@@ -20,43 +21,52 @@ class ArticleController extends AbstractController
     ) {
     }
 
-    #[Route("/articles", name: 'articles_app', methods: ['GET'])]
+    #[Route("/article", name: 'articles', methods: ['GET'])]
     public function index()
     {
         $articles = $this->articleRepository->findAll();
 
-        return $this->render('pages/articles.html.twig', [
+        return $this->render('article/index.html.twig', [
             'articles' => $articles,
         ]);
     }
 
-    #[Route("/article/{id}", name: 'article_by_id', methods: ['GET'])]
-    public function articleById(int $id)
+    #[Route('/article/create', name: 'app_article_form', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function addArticleForm()
     {
-        $article = $this->articleRepository->find($id);
-        
-        return $this->render('article/article.html.twig',[
-            'article' => $article,
+        $form = $this->createForm(ArticleFormType::class, new ArticleCreateFromInput());
+        return $this->render('article/create.html.twig', [
+            'articleForm' => $form->createView(),
         ]);
     }
 
-    #[Route('/article/create', name: 'create_article', methods: ['GET','POST']), IsGranted('ROLE_USER')]
-    public function create(Request $request): Response
+    #[Route('/article/create', name: 'create_article', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function addArticle(Request $request): Response
     {
-
         $article = new Article();
-        $form = $this->createForm(ArticleFormType::class, $article);
-        $form->handleRequest($request);
+        $article->setTitle($request->request->get('title'));
+        $article->setAuthor($request->request->get('author'));
+        $article->setContent($request->request->get('texto'));
+        dump($article);die;
+        // $article = new Article();
+        // $form = $this->createForm(ArticleFormType::class, $article);
+        // $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) { 
-            $this->entityManager->persist($article);
-            $this->entityManager->flush();
+        $this->entityManager->persist($article);
+        $this->entityManager->flush();
 
-            return $this->redirectToRoute('home_app');
-        }
+        return $this->redirectToRoute('home_app');
+    }
+
+    #[Route("/article/{article}", name: 'article_by_id', methods: ['GET'])]
+    public function articleById(Article $article)
+    {
+        $article = $this->articleRepository->find($article->getid());
         
-        return $this->render('article/create.html.twig', [
-            'articleForm' => $form->createView(),
+        return $this->render('article/article.html.twig',[
+            'article' => $article,
         ]);
     }
 }

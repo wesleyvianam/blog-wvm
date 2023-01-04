@@ -4,16 +4,139 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .content { 
+        color: white;
+        width:800px;
+        margin: 3rem auto;
+    }
+
+    .content__blocktext {
+        background: #FAFAFA;
+        border-radius: 4px;
+    }
+
+    *  {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .button {
+        padding:.5rem  1rem;
+    }
+
+    .content__form {
+        display: flex;
+        flex-direction: column;
+        padding: 0 1rem 1rem;
+
+    }
+    
+    .title-article {
+        border:none;
+        font-size:30px;
+        margin-bottom: 10px;
+        font-weight: 700;
+        margin-top: 15px;
+    }
+
+    .author-article {
+        border:none;
+        border-bottom:1px solid #ccc;
+        font-size:15px;
+    }
+
+    .text-article {
+        margin-bottom:15px;
+        width: 100%;
+        border: none;
+        border-top: 1px solid #ccc;
+        font-size:18px;
+    }
+
+    textarea:focus, input:focus{
+        outline: none;
+    }
+
+    .inputImage {
+        display:none;
+    }
+
+    .inputImageLabel {
+        color: #877a7a;
+        border: 1px solid;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        padding: 1rem 1.8rem;
+        margin-top: 15px;
+        border-radius: 4px;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header-title-author {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 
-<div class="example-wrapper">
-   {{ form_start(articleForm) }}
+<div class="content">
+    <div class="content__blocktext">
+        <form action="{{ path('create_article') }}" method="post" class="content__form">
+            <div class="header">
+                <div class="header-title-author">
+                    <label for="title"></label>
+                    <input type="text"
+                        required
+                        id="title"
+                        name="title" 
+                        placeholder="New post title here..."
+                        class="title-article">
+                    <label for="author"></label>
+                    <input type="text"
+                        required
+                        id="author"
+                        name="author"
+                        class="author-article"
+                        placeholder="autor">
+                </div>
+
+                <label class="inputImageLabel" for="fileImage">+</i></label>
+                <input type="file"
+                    required
+                    id="fileImage"
+                    name="fileImage"
+                    class="inputImage">
+                
+            </div>
+            
+
+            <label for="texto">Texto:</label>
+            <textarea type="text"
+                required
+                id="texto"
+                name="texto" 
+                rows="30"
+                class="text-article"
+                placeholder="Escreva o seu post aqui">
+            </textarea>
+
+            <button type="submit" class="button">Publish</button>
+        </form>
+    </div>
+   {# {{ form_start(articleForm) }}
         {{ form_row(articleForm.title) }}
         {{ form_row(articleForm.author) }}
         {{ form_row(articleForm.content) }}
-        <button type="submit" class="btn">Publish Article</button>
-    {{ form_end(articleForm) }}
+        <button type="submit" class="button">Publish</button>
+    {{ form_end(articleForm) }} #}
 </div>
+
+<script>
+    const text = document.querySelector("#texto");
+    text.value = "";
+
+</script>
 {% endblock %}
